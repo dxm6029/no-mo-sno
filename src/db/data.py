@@ -154,7 +154,7 @@ def getJob():
     dictList = []
 
     for data in result:
-        dictList.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price":data[3], "rating":data[4]})
+        dictList.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price":data[3], "rating":float(str(data[4]))})
 
     return dictList
 
