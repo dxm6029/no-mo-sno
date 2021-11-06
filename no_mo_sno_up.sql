@@ -1,18 +1,15 @@
-CREATE TABLE IF NOT EXISTS `user` (
-  id INT NOT NULL AUTO_INCREMENT,
-  fname VARCHAR(50) NOT NULL,
-  lname VARCHAR(50) NOT NULL,
-  location VARCHAR(4000) NOT NULL,
-  rating DECIMAL(3, 2),
-  numRating INT,
-  PRIMARY KEY (id)
+create table users (
+   id SERIAL NOT NULL PRIMARY KEY,
+   fname text NOT NULL,
+   lname text NOT NULL,
+   location text NOT NULL,
+   rating DECIMAL(3, 2),
+   numRating INT
 );
 
-CREATE TABLE IF NOT EXISTS `comment` (
-  commentId INT NOT NULL AUTO_INCREMENT,
-  workerId INT NOT NULL,
-  customerId VARCHAR(50) NOT NULL,
-  `comment` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (commentId)
+CREATE TABLE comment (
+       commentId SERIAL NOT NULL PRIMARY KEY,
+       workerId INT NOT NULL,
+       customerId INT NOT NULL,
+       description VARCHAR(5000) NOT NULL
 );
-  
