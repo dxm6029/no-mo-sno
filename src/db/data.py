@@ -83,6 +83,8 @@ def getUserInfoFromId(id):
 
     return dictList
 
+
+
 def createComment(postUser, targetUser, comment):
     """
 
@@ -122,7 +124,41 @@ def getAllComments(id):
 
     return dictList
 
+def addJob(customerId, workerId, location, price, rating):
+    """
+
+    :param user:
+    :param password:
+    :param fname:
+    :param lname:
+    :param location:
+    :return: if inserted successfully
+    """
+
+    sql = "INSERT INTO jobs(customerId, workerId, location, price, rating) VALUES (%(customerId)s, %(workerId)s, %(location)s, %(price)s, %(rating)s)"
+    values = {"customerId": customerId, "workerId": workerId, "location": location, "price": price, "rating": rating}
+
+    result = exec_commit(sql, values)
+
+    if(result > 0):
+        return True
+    else:
+        return False
+
+# as a worker, i want to see all the jobs available to me = sorting by rating
+def getJob():
+    sql = "SELECT u.username AS customerID, ut.username AS workerID, jobs.location, price, rating FROM jobs JOIN users AS u ON u.id=jobs.customerid JOIN users AS ut ON ut.id=jobs.workerid ORDER BY rating DESC";
+
+    result = exec_get_all(sql, None)
+
+    dictList = []
+
+    for data in result:
+        dictList.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price":data[3], "rating":data[4]})
+
+    return dictList
+
 if __name__ == '__main__':
-    print(getUserInfoFromId(2))
+    print(getJob())
 
 

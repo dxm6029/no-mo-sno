@@ -20,4 +20,13 @@ CREATE TABLE comment (
        description VARCHAR(5000) NOT NULL
 );
 
+create table jobs (
+                       jobId SERIAL NOT NULL PRIMARY KEY,
+                       customerId int NOT NULL,
+                       workerId int NOT NULL,
+                       location text NOT NULL,
+                       price int not null,
+                       rating decimal -- of customer --
+);
+
 COMMIT;
