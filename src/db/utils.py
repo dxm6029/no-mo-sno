@@ -2,14 +2,15 @@ import psycopg2
 import yaml
 import os
 
-"""
+
 def connect():
-    return psycopg2.connect(dbname=,
-                            user=,
-                            password=,
-                            host=,
-                            port=)
-                            """
+    return psycopg2.connect(dbname=    os.environ['DB_DATABASE'],
+                            user=    os.environ['DB_USER'],
+                            password=    os.environ['DB_PASSWORD'],
+                            host=    os.environ['DB_IP'],
+                            port=    os.environ['5432']
+)
+
 
 def exec_sql_file(path):
     full_path = os.path.join(os.path.dirname(__file__), f'../../{path}')
