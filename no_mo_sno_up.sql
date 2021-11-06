@@ -1,9 +1,3 @@
-show databases;
-use dxm6029;
-show tables;
-
-DROP TABLE IF EXISTS `user` ;
-
 CREATE TABLE IF NOT EXISTS `user` (
   id INT NOT NULL AUTO_INCREMENT,
   fname VARCHAR(50) NOT NULL,
@@ -13,8 +7,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   numRating INT,
   PRIMARY KEY (id)
 );
- 
- DROP TABLE IF EXISTS `comment` ;
 
 CREATE TABLE IF NOT EXISTS `comment` (
   commentId INT NOT NULL AUTO_INCREMENT,
