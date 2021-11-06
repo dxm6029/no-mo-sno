@@ -1,7 +1,7 @@
 from hashlib import sha512
 from secrets import token_urlsafe
 
-from db.utils import exec_commit, exec_commit_return, exec_get_one
+from db.utils import exec_commit, exec_commit_return, exec_get_one, exec_get_all
 
 
 def login(user, password):
@@ -61,8 +61,47 @@ def getIdFromToken(token):
     result = exec_get_one(sql, values)
     return result[0]
 
+
+def createComment(postUser, targetUser, comment):
+    """
+
+    :param customerID:
+    :param workerID:
+    :param postUser:
+    :param comment:
+    :return:
+    """
+
+    sql = "INSERT INTO comments(postUser, targetUser, description) VALUES (%(postUser)s, %(targetUser)s, %(description)s)"
+    values = {"postUser": postUser, "targetUser": targetUser, "description": comment}
+
+    result = exec_commit(sql, values)
+
+    if (result > 0):
+        return True
+    else:
+        return False
+
+def getAllComments(id):
+    """
+
+    :param id:
+    :return: if they are worker or cusotmer and they did not post it
+    """
+
+    sql = "SELECT c.commentId, ut.username as postUser, u.username as targetUser, c.description FROM comments c JOIN users u on c.targetUser = u.id JOIN users ut on c.postUser = ut.id WHERE c.targetUser =%(targetUser)s "
+    values = {"targetUser": id}
+
+    result = exec_get_all(sql, values)
+
+    dictList = []
+
+    for data in result:
+        dictList.append({"commentId": data[0], "postUser": data[1], "username": data[2], "description":data[3]})
+
+    return dictList
+
 if __name__ == '__main__':
-    #login("dmolee", "pass123")
-    print(getIdFromToken("FDx1b2FNa1kvlz92jvgMbw"))
+    print(getAllComments(2))
 
 
