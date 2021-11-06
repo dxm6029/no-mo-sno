@@ -1,10 +1,16 @@
+BEGIN;
+
 create table users (
    id SERIAL NOT NULL PRIMARY KEY,
    fname text NOT NULL,
    lname text NOT NULL,
+   username text NOT NULL,
+   hashed_password text NOT NULL,
    location text NOT NULL,
-   rating DECIMAL(3, 2),
-   numRating INT
+   shovel_rating decimal,
+   num_shovel_rating INT,
+   house_rating decimal,
+   num_house_rating INT
 );
 
 CREATE TABLE comment (
@@ -13,3 +19,5 @@ CREATE TABLE comment (
        customerId INT NOT NULL,
        description VARCHAR(5000) NOT NULL
 );
+
+COMMIT;
