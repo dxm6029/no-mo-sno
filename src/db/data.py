@@ -65,6 +65,23 @@ def getIdFromToken(token):
 
     return result[0]
 
+def getUserInfoFromId(id):
+    """
+
+    :param token:
+    :return: user id
+    """
+    sql = "SELECT fname, lname, username, location, shovel_rating, num_shovel_rating, house_rating, num_house_rating FROM users WHERE id=%(id)s"
+    values = {"id": id}
+
+    result = exec_get_all(sql, values)
+
+    dictList = []
+
+    for data in result:
+        dictList.append({"fname": data[0], "lname": data[1], "username": data[2], "location": data[3], "shovelRating": data[4], "numShovelRating": data[5], "houseRating": data[6], "numHouseRating": data[7]})
+
+    return dictList
 
 def createComment(postUser, targetUser, comment):
     """
@@ -106,6 +123,6 @@ def getAllComments(id):
     return dictList
 
 if __name__ == '__main__':
-    print(getAllComments(2))
+    print(getUserInfoFromId(2))
 
 
