@@ -1,6 +1,5 @@
 from hashlib import sha512
 from secrets import token_urlsafe
-
 from db.utils import exec_commit
 
 
@@ -17,7 +16,7 @@ def login(user, password):
     token = token_urlsafe(16)
 
     # check verification here
-    sql = "UPDATE users SET token = %{tok}s WHERE user = %{usr}s AND password = %{pwd}s";
+    sql = "UPDATE users SET token = %{tok}s WHERE user = %{usr}s AND password = %{pwd}s"
     values = {"tok": token, "usr": user, "pwd": hash_pass}
 
     result = exec_commit(sql, values)
