@@ -7,6 +7,7 @@ from api.register import Register
 from api.comments import Comments
 from api.getComments import getComments
 from api.getJobs import getJobs
+from api.addJobs import addJobs
 
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ api.add_resource(Register, '/register')
 api.add_resource(Comments, '/comments')
 api.add_resource(getComments, '/comments/<id>')
 api.add_resource(getJobs, '/jobs')
+api.add_resource(addJobs, '/jobs')
 
 
 if __name__ == '__main__':
