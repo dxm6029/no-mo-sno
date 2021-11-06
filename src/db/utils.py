@@ -1,14 +1,16 @@
 import psycopg2
 import yaml
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 
 def connect():
+    print( os.environ.values())
     return psycopg2.connect(dbname=    os.environ['DB_DATABASE'],
                             user=    os.environ['DB_USER'],
                             password=    os.environ['DB_PASSWORD'],
                             host=    os.environ['DB_IP'],
-                            port=    os.environ['5432']
+                            port=    os.environ['DB_PORT']
 )
 
 
@@ -42,6 +44,7 @@ def exec_get_all(sql, args={}):
 def exec_commit(sql, args={}):
     conn = connect()
     cur = conn.cursor()
+    print(args)
     cur.execute(sql, args)
     result = cur.rowcount
     conn.commit()
