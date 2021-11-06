@@ -59,6 +59,10 @@ def getIdFromToken(token):
     values = {"tok": token}
 
     result = exec_get_one(sql, values)
+
+    if result[0] is None:
+        return None
+
     return result[0]
 
 
