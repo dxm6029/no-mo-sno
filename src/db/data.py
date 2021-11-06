@@ -58,7 +58,8 @@ def getIdFromToken(token):
     sql = "SELECT id FROM users WHERE token=%(tok)s"
     values = {"tok": token}
 
-    return exec_get_one(sql, values)
+    result = exec_get_one(sql, values)
+    return result[0]
 
 if __name__ == '__main__':
     #login("dmolee", "pass123")
