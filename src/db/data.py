@@ -157,7 +157,8 @@ def getJob():
 
     return dictList
 
-def filteredGetJobs(available: bool=False, location: str=None):
+
+def filteredGetJobs(available: bool = False, location: str = None):
     """
 
     :param available: boolean to indicate if we only want open jobs
