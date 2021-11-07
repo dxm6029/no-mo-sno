@@ -13,13 +13,16 @@ class changeStatus(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("updateTO", type=str)
         args = parser.parse_args()
-        updateTO = args["updatTO"]
+        updateTO = args["updateTO"]
 
         if updateTO == 'Pending':
             updateStatusToPending(id)
+            return "Job Status Updated to Pending", 200
         if updateTO == 'InProgress':
             updateStatusToInProgress(id)
+            return "Job Status Updated to Progress", 200
         if updateTO == 'Complete':
             updateStatusToComplete(id)
+            return "Job Status Updated to Complete", 200
 
-        return "Job Status Updated", 200
+
