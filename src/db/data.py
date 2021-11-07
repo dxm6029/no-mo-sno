@@ -164,8 +164,8 @@ def filteredGetJobs(available: bool=False, location: str=None):
     :param location: city
     :return:
     """
-    sql = "SELECT u.username AS customerID, ut.username AS workerID, jobs.location, price, rating FROM jobs JOIN " \
-          "users AS u ON u.id=jobs.customerid JOIN users AS ut ON ut.id=jobs.workerid"
+    sql = "SELECT u.username AS customerID, ut.username AS workerID, jobs.location, price, rating, status FROM jobs " \
+          "JOIN users AS u ON u.id=jobs.customerid JOIN users AS ut ON ut.id=jobs.workerid"
     end_sql = " ORDER BY rating DESC"
     condition_sql = ""
     first_condition = True
@@ -187,7 +187,8 @@ def filteredGetJobs(available: bool=False, location: str=None):
 
     for data in result:
         dict_list.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price": data[3],
-                         "rating": float(str(data[4]))})
+                          "rating": float(str(data[4])), "status": data[5]})
+
     return dict_list
 
 
