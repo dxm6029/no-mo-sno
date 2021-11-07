@@ -150,13 +150,47 @@ def getJob():
     sql = "SELECT u.username AS customerID, ut.username AS workerID, jobs.location, price, rating, status FROM jobs JOIN users AS u ON u.id=jobs.customerid JOIN users AS ut ON ut.id=jobs.workerid ORDER BY rating DESC";
 
     result = exec_get_all(sql, None)
-
     dictList = []
 
     for data in result:
         dictList.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price":data[3], "rating":float(str(data[4])), "status":data[5]})
 
     return dictList
+
+def filteredGetJobs(available: bool=False, location: str=None):
+    """
+
+    :param available: boolean to indicate if we only want open jobs
+    :param location: city
+    :return:
+    """
+    sql = "SELECT u.username AS customerID, ut.username AS workerID, jobs.location, price, rating, status FROM jobs " \
+          "JOIN users AS u ON u.id=jobs.customerid JOIN users AS ut ON ut.id=jobs.workerid"
+    end_sql = " ORDER BY rating DESC"
+    condition_sql = ""
+    first_condition = True
+    values = {}
+    if available:
+        condition_sql += " WHERE jobs.status LIKE %(status)s"
+        values["status"] = "pending"
+        first_condition = False
+    if location:
+        if first_condition:
+            condition_sql += " WHERE "
+        else:
+            condition_sql += " AND "
+        condition_sql += "jobs.location LIKE %(location)s"
+        values["location"] = f"%{location}%"
+
+    result = exec_get_all(sql + condition_sql + end_sql, values)
+    dict_list = []
+
+    for data in result:
+        dict_list.append({"customerID": data[0], "workerID": data[1], "location": data[2], "price": data[3],
+                          "rating": float(str(data[4])), "status": data[5]})
+
+    return dict_list
+
 
 def updateStatusToInProgress(id):
     sql = "UPDATE jobs SET status = %(status)s WHERE jobid = %(jobid)s"
@@ -192,6 +226,6 @@ def updateStatusToPending(id):
     return False
 
 if __name__ == '__main__':
-    print(getJob())
+    print(filteredGetJobs(True, "Rochester"))
 
 

@@ -9,6 +9,7 @@ from api.getComments import getComments
 from api.getJobs import getJobs
 from api.addJobs import addJobs
 from api.changeStatus import changeStatus
+from api.getJobInfo import getJobInfo
 
 
 app = Flask(__name__)
@@ -22,6 +23,8 @@ api.add_resource(getComments, '/comments/<id>')
 api.add_resource(getJobs, '/jobs')
 api.add_resource(addJobs, '/jobs')
 api.add_resource(changeStatus, '/jobs/<id>')
+api.add_resource(getJobInfo, '/jobInfo')
+
 
 
 if __name__ == '__main__':
