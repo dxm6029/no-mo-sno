@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
+from flask_cors import CORS
 
 from api.healthcheck import Healthcheck
 from api.login import Login
@@ -14,6 +15,7 @@ from api.getJobInfo import getJobInfo
 
 app = Flask(__name__)
 api = Api(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 api.add_resource(Healthcheck, '/')
 api.add_resource(Login, '/login')
