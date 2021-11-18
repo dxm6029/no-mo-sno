@@ -15,7 +15,7 @@ from api.getJobInfo import getJobInfo
 
 app = Flask(__name__)
 api = Api(app)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app)  # , resources={r"/*": {"origins": "localhost:3000"}}
 
 api.add_resource(Healthcheck, '/')
 api.add_resource(Login, '/login')
